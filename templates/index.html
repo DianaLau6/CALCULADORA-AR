@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CALCULADORA</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="Container">
+        <div class="Calculadora">
+            <input type="text" placeholder="0" id="source_code" name="source_code" disable>
+            <div>
+                <button class="operador" id="limpiar">C</button>
+                <button class="operador" id="parentesis_izq">(</button>
+                <button class="operador" id="parentesis_der">)</button>
+                <button class="operador" id="dividido">/</button>
+            </div>
+            <div>
+                <button id="siete">7</button>
+                <button id="ocho">8</button>
+                <button id="nueve">9</button>
+                <button class="operador" id="por">*</button>
+            </div>
+            <div>
+                <button id="cuatro">4</button>
+                <button id="cinco">5</button>
+                <button id="seis">6</button>
+                <button class="operador" id="menos">-</button>
+            </div>
+            <div>
+                <button id="uno">1</button>
+                <button id="dos">2</button>
+                <button id="tres">3</button>
+                <button class="operador" id="mas">+</button>
+            </div>
+            <div>
+                <button id="borrar">DEL</button>
+                <button id="cero">0</button>
+                <button id="punto">.</button>
+                <button class="btnigual" id="igual">=</button>
+            </div>
+        </div>
+    </div>
+    <div class="analizadores"> 
+        <div class="cuadro">
+            <div class="titulo">
+                <p> Analizador Léxico</p>
+            </div>
+            <div id="lexical_result" class="results">
+                {% if lexical_result %}
+                    <ul>
+                        {% for token_type, token_value in lexical_result %}
+                            <li>{{ token_type }}: {{ token_value }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+        <div>
+           <button class="tree"><a href="{{ url_for('arbol') }}">TREE</a></button> 
+        </div>
+    </div>
+
+   
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

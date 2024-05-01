@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lexico</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cuadro.css') }}">
+</head>
+<body>
+    <div id="treeVisualization" ></div>
+    <script type="text/javascript">
+        // Función para renderizar el árbol sintáctico con vis.js
+        function renderizarArbol(data) {
+            var container = document.getElementById('treeVisualization');
+            var options = {
+                layout: {
+                    hierarchical: {
+                        direction: 'UD',
+                        sortMethod: 'directed'
+                    }
+                },
+                edges: {
+                    smooth: {
+                        type: 'cubicBezier',
+                        forceDirection: 'vertical',
+                        roundness: 0.4
+                    }
+                }
+            };
+            var network = new vis.Network(container, data, options);
+        }
+
+        // Obtener datos del árbol sintáctico desde Flask
+        var visData = {{ vis_data | tojson | safe }};
+
+        // Renderizar el árbol sintáctico en la página
+        renderizarArbol(visData);
+    </script>
+</body>
+</html>
