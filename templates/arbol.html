@@ -3,12 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lexico</title>
+    <title>Árbol Sintáctico</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='cuadro.css') }}">
 </head>
 <body>
-    <div id="treeVisualization" ></div>
-    <script type="text/javascript">
+    <!-- Contenedor para visualizar el árbol sintáctico -->
+    <div id="treeVisualization"></div>
+
+    <!-- Biblioteca vis.js para visualización de redes -->
+    <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+    <script>
+        // Obtén los datos del árbol sintáctico desde Flask
+        var visData = {{ vis_data | tojson | safe }};
+
         // Función para renderizar el árbol sintáctico con vis.js
         function renderizarArbol(data) {
             var container = document.getElementById('treeVisualization');
@@ -30,11 +37,14 @@
             var network = new vis.Network(container, data, options);
         }
 
-        // Obtener datos del árbol sintáctico desde Flask
-        var visData = {{ vis_data | tojson | safe }};
-
-        // Renderizar el árbol sintáctico en la página
-        renderizarArbol(visData);
+        // Renderizar el árbol sintáctico al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            if (visData !== null) {
+                renderizarArbol(visData);
+            } else {
+                console.error('No se han proporcionado datos del árbol sintáctico.');
+            }
+        });
     </script>
 </body>
 </html>

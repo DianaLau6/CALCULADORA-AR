@@ -16,39 +16,3 @@ body{
     align-items: center;
     background: linear-gradient(23deg,  #584c79, #d4b54f);
 }
-
-.lex{
-    border: solid 2px;
-    width: 500px;
-    height: 90%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border-radius: 9px;
-}
-
-.titulo{
-    border: solid 2px;
-    width: 90%;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 40px;
-
-}
-
-.titulo p{
-    font-family: "Arvo", serif;
-    font-weight: 700;
-    font-size: 40px;
-
-}
-.cuadro{
-    width: 90%;
-    height: 80%;
-    border-radius: 30px;
-    box-shadow: 2px 1px 18px rgb(9, 68, 95);
-    border: 1px solid #37103f;
-    padding: 20px;
-    margin: 10px;
-}

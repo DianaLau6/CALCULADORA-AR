@@ -1,30 +1,56 @@
 # lexer.py
 import ply.lex as lex
 
+
 # Lista de tokens
 tokens = (
     'NUMERO',
     'DECIMAL',
-    'MAS',
-    'MENOS',
-    'POR',
-    'DIVIDIDO',
+    'SUMA',
+    'RESTA',
+    'MULTIPLICACION',
+    'DIVISION',
     'PARENTESIS_IZQ',
     'PARENTESIS_DER',
     'IGUAL',
 )
 
 # Definición de tokens
-t_MAS = r'\+'
-t_MENOS = r'-'
-t_POR = r'\*'
-t_DIVIDIDO = r'/'
-t_PARENTESIS_IZQ = r'\('
-t_PARENTESIS_DER = r'\)'
+
 t_IGUAL = r'='
 
 # Ignorar espacios en blanco
 t_ignore = ' \t'
+
+def t_SUMA(t):
+    r'\+'
+    t.value = str(t.value)
+    return t
+
+def t_RESTA(t):
+    r'-'
+    t.value = str(t.value)
+    return t
+
+def t_MULTIPLICACION(t):
+    r'\*'
+    t.value = str(t.value)
+    return t
+
+def t_DIVISION(t):
+    r'/'
+    t.value = str(t.value)
+    return t
+
+def t_PARENTESIS_IZQ(t):
+    r'\('
+    t.value = str(t.value)
+    return t
+
+def t_PARENTESIS_DER(t):
+    r'\)'
+    t.value = str(t.value)
+    return t
 
 # Definición de token para números
 def t_NUMERO(t):

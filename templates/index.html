@@ -9,7 +9,7 @@
 <body>
     <div class="Container">
         <div class="Calculadora">
-            <input type="text" placeholder="0" id="source_code" name="source_code" disable>
+            <input type="text" placeholder="0" id="source_code" name="source_code" disabled>
             <div>
                 <button class="operador" id="limpiar">C</button>
                 <button class="operador" id="parentesis_izq">(</button>
@@ -47,7 +47,7 @@
             <div class="titulo">
                 <p> Analizador Léxico</p>
             </div>
-            <div id="lexical_result" class="results">
+            <div id="lexical_result" class="result">
                 {% if lexical_result %}
                     <ul>
                         {% for token_type, token_value in lexical_result %}
@@ -55,10 +55,11 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
-            </div>
+            </div>         
+            
         </div>
         <div>
-           <button class="tree"><a href="{{ url_for('arbol') }}">TREE</a></button> 
+            <button class="tree"><a href="{{ url_for('mostrar_arbol') }}">TREE</a></button>
         </div>
     </div>
 

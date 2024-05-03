@@ -1,4 +1,3 @@
-// Obtén los elementos necesarios del DOM
 const input = document.getElementById('source_code');
 const buttons = document.querySelectorAll('button');
 const calculator = document.querySelector('.Calculadora');
@@ -19,17 +18,13 @@ arr.forEach((button) => {
                     // Evalúa la expresión matemática
                     const result = evaluateExpression(string);
                     input.value = result;
+                    fetchLexicalAnalysis(string);
+                    obtenerArbolSintactico(string); // Cambiado a 'string'
                 }
-
-                // Realiza una solicitud para obtener el análisis léxico
-                fetchLexicalAnalysis(string);
             } catch (error) {
                 input.value = 'Error';
                 console.error('Error:', error);
             }
-
-            // Reinicia la cadena de entrada
-            string = '';
         } else if (e.target.innerHTML === 'C') {
             input.value = '';
         } else if (e.target.innerHTML === 'DEL') {
@@ -133,6 +128,7 @@ function evaluateExpression(expression) {
         throw new Error('Expresión inválida');
     }
 }
+
 function fetchLexicalAnalysis(sourceCode) {
     fetch('/', {
         method: 'POST',
@@ -143,15 +139,40 @@ function fetchLexicalAnalysis(sourceCode) {
     })
     .then((response) => response.json())
     .then((data) => {
+        console.log('Data received from server:', data); // Verificar la respuesta del servidor
         // Muestra los resultados léxicos en el contenedor adecuado
         let html = '<ul>';
         data.lexical_result.forEach((token) => {
             html += `<li>${token[0]}: ${token[1]}</li>`;
         });
         html += '</ul>';
+        console.log('HTML content:', html); // Verificar el HTML generado
         lexicalResultContainer.innerHTML = html;
     })
     .catch((error) => console.error('Error:', error));
+}
+
+// Función para enviar la expresión al servidor y recibir el árbol sintáctico
+function obtenerArbolSintactico(sourceCode) {
+    fetch('/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ source_code: sourceCode })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.arbol_sintactico) {
+            // Redirigir a la página de visualización del árbol
+            window.location.href = '/arbol';
+        } else {
+            console.error('No se recibió un árbol sintáctico válido.');
+        }
+    })
+    .catch(error => {
+        console.error('Error al obtener el árbol sintáctico:', error);
+    });
 }
 
 

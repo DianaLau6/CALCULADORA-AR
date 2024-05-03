@@ -1,10 +1,11 @@
-# app.py
 from flask import Flask, render_template, request, jsonify
-from lexer import lexer 
+from lexer import lexer
+from arbol import construir_arbol_sintactico, convertir_arbol_a_vis
 
 app = Flask(__name__)
 
-# Ruta para la página principal
+datos_arbol = None
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -12,27 +13,53 @@ def index():
         source_code = request.json.get('source_code')
 
         # Llamar al analizador léxico
-        lexical_result = []
         lexer.input(source_code)
-        for token in lexer:
-            lexical_result.append((token.type, token.value))
+        lexical_result = [(token.type, token.value) for token in lexer]
 
-        # Evaluar la expresión (ejemplo simplificado)
+        print("Lexical Result:", lexical_result)  # Agregar este print
+    
+
         try:
-            result = eval(source_code)
-        except Exception as e:
-            result = str(e)
+              # Evaluar la expresión (ejemplo simplificado)
+            lexical_result = eval(source_code)
 
-        # Devolver los resultados
-        return jsonify(lexical_result=lexical_result, result=result)
+                # Construir la lista de tokens para el árbol sintáctico
+            lexer.input(source_code)
+            tokens = list(lexer)
+            # Construir el árbol sintáctico a partir de los tokens
+            arbol_sintactico = construir_arbol_sintactico(tokens)
+
+            # Convertir el árbol sintáctico a un formato compatible con Vis.js
+            vis_data = convertir_arbol_a_vis(arbol_sintactico)
+
+            # Guardar los datos del árbol para usarlos en la siguiente ruta
+            global datos_arbol
+            datos_arbol = vis_data
+
+            # Renderizar la plantilla index.html con los resultados léxicos
+            return render_template('index.html', lexical_result=lexical_result)
+
+        except Exception as e:
+            return render_template('error.html', message=str(e)), 500
 
     return render_template('index.html')
 
-# Ruta para el árbol
-@app.route('/arbol')
-def arbol():
-    return render_template('arbol.html')
 
+@app.route('/arbol', methods=['GET'])
+def mostrar_arbol():
+    global datos_arbol
+    try:
+        # Recuperar los datos del árbol guardados previamente
+        vis_data = datos_arbol
+
+        if vis_data is None:
+            raise Exception("Los datos del árbol sintáctico no están disponibles.")
+
+        # Renderizar la plantilla arbol.html para mostrar el árbol
+        return render_template('arbol.html', vis_data=vis_data)
+
+    except Exception as e:
+        return render_template('error.html', message=str(e)), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
