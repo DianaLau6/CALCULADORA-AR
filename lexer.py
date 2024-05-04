@@ -12,12 +12,8 @@ tokens = (
     'DIVISION',
     'PARENTESIS_IZQ',
     'PARENTESIS_DER',
-    'IGUAL',
+    
 )
-
-# Definición de tokens
-
-t_IGUAL = r'='
 
 # Ignorar espacios en blanco
 t_ignore = ' \t'

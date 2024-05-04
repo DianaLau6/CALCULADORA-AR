@@ -12,20 +12,19 @@ def index():
         # Obtener el código fuente ingresado por el usuario
         source_code = request.json.get('source_code')
 
-        # Llamar al analizador léxico
-        lexer.input(source_code)
-        lexical_result = [(token.type, token.value) for token in lexer]
-
-        print("Lexical Result:", lexical_result)  # Agregar este print
-    
-
         try:
-              # Evaluar la expresión (ejemplo simplificado)
-            lexical_result = eval(source_code)
+            # Llamar al analizador léxico
+            lexer.input(source_code)
+            lexical_result = [(token.type, token.value) for token in lexer]
+            print("Lexical Result:", lexical_result)  # Agregar este print
 
-                # Construir la lista de tokens para el árbol sintáctico
+            # Evaluar la expresión (ejemplo simplificado)
+            result = eval(source_code)
+
+            # Construir la lista de tokens para el árbol sintáctico
             lexer.input(source_code)
             tokens = list(lexer)
+
             # Construir el árbol sintáctico a partir de los tokens
             arbol_sintactico = construir_arbol_sintactico(tokens)
 
@@ -36,8 +35,8 @@ def index():
             global datos_arbol
             datos_arbol = vis_data
 
-            # Renderizar la plantilla index.html con los resultados léxicos
-            return render_template('index.html', lexical_result=lexical_result)
+            # Renderizar la plantilla index.html con los resultados léxicos y sintácticos
+            return render_template('index.html', lexical_result=lexical_result, result=result)
 
         except Exception as e:
             return render_template('error.html', message=str(e)), 500
