@@ -174,12 +174,3 @@ function obtenerArbolSintactico(sourceCode) {
         console.error('Error al obtener el árbol sintáctico:', error);
     });
 }
-
-
-//numero:0-9
-//decimales 0-9.0-9
-//operadores: +,-,/,*
-//parentesis_a: (
-// parentesis_c)
-// punto.
-// igual: =

@@ -26,12 +26,31 @@
                         sortMethod: 'directed'
                     }
                 },
+                nodes: {
+                    shape: 'circle',  // Cambiar la forma de los nodos a círculo
+                    color: {
+                        border: 'black',
+                        background: 'lightblue'
+                    },
+                    font: {
+                        color: 'black',
+                        size: 25,  // Tamaño de la fuente dentro de los nodos (en px)
+                        align: 'center'  // Centrar el texto dentro de los nodos
+                    },
+                    size: 50,  // Tamaño del nodo (en px)
+                    sizeConstraint: {
+                        minimum: 30,
+                        maximum: 100
+                    }
+                },
                 edges: {
                     smooth: {
                         type: 'cubicBezier',
                         forceDirection: 'vertical',
                         roundness: 0.4
-                    }
+                    },
+                    color: 'red',
+                    size: 4
                 }
             };
             var network = new vis.Network(container, data, options);

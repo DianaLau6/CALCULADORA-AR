@@ -16,3 +16,8 @@ body{
     align-items: center;
     background: linear-gradient(23deg,  #584c79, #d4b54f);
 }
+
+#treeVisualization {
+    width: 100%;  /* Ancho del contenedor */
+    height: 600px; /* Altura del contenedor */
+}

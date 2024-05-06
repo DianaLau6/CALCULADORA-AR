@@ -16,8 +16,6 @@ def index():
             # Llamar al analizador léxico
             lexer.input(source_code)
             lexical_result = [(token.type, token.value) for token in lexer]
-            print("Lexical Result:", lexical_result)  # Agregar este print
-
             # Evaluar la expresión (ejemplo simplificado)
             result = eval(source_code)
 
@@ -36,10 +34,10 @@ def index():
             datos_arbol = vis_data
 
             # Renderizar la plantilla index.html con los resultados léxicos y sintácticos
-            return render_template('index.html', lexical_result=lexical_result, result=result)
+            return jsonify({'lexical_result':lexical_result, 'result':result})
 
         except Exception as e:
-            return render_template('error.html', message=str(e)), 500
+            return jsonify({'error',str(e)}), 500
 
     return render_template('index.html')
 

@@ -49,17 +49,15 @@ def t_PARENTESIS_DER(t):
     return t
 
 # Definición de token para números
-def t_NUMERO(t):
-    r'\d+'
-    t.value = int(t.value)
-    return t
-
-# Definición de token para números decimales
 def t_DECIMAL(t):
     r'\d+\.\d+'
     t.value = float(t.value)
     return t
 
+def t_NUMERO(t):
+    r'\d+'
+    t.value = int(t.value)
+    return t
 # Manejo de errores léxicos
 def t_error(t):
     print(f"Carácter ilegal '{t.value[0]}'")
