@@ -1,5 +1,5 @@
 from lexer import tokens  # Importar los tokens definidos en lexer.py
-from lexer import lexer  # Asegúrate de importar el lexer si es necesario
+from lexer import lexer 
 
 class Nodo:
     def __init__(self, valor):

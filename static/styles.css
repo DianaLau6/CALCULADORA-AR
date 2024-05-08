@@ -112,3 +112,20 @@ button{
     height: 20px;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+    padding-left: 20px; /* Ajusta según sea necesario */
+    background-color: transparent;
+  }
+  li {
+    margin-bottom: 5px; /* Espacio entre elementos de la lista */
+    background-color: transparent;
+    color: #8f6161;
+  }
+  
+li::before {
+    content: '⭐'; /* Puedes usar cualquier carácter o ícono aquí */
+    font-size: 20px; /* Tamaño del marcador */
+    margin-right: 10px; /* Espacio entre el marcador y el texto */
+  }
